@@ -1,0 +1,115 @@
+<script lang="ts">
+	import type { Bot } from '@prisma/client';
+	import Card, { Content, Actions } from '@smui/card';
+	import Button, { Label } from '@smui/button';
+	import Tooltip, { Wrapper } from '@smui/tooltip';
+
+	export let bot: Bot;
+</script>
+
+<Card>
+	<Content>
+		<div class="card">
+			<div class="top-data">
+				<img src={bot?.avatar || '/logo.png'} class="card-img-top" alt="Avatar" />
+				<div class="bot-info">
+					<h2 class="bot-username text-white">
+						{bot?.username || 'Unknown'}
+					</h2>
+					<p class="bot-info-item">
+						{bot?.vote_count || 0} votes
+						{' • '}
+						{bot?.guild_count || 0} servers
+					</p>
+					<div class="bot-info-item">
+						{#if bot?.nsfw}
+							<Wrapper>
+								<span class="badge badge-danger" style="margin-right: 5px;">NSFW</span>
+								<Tooltip>This bot is not safe for work!</Tooltip>
+							</Wrapper>
+						{/if}
+						{#if bot?.verified}
+							<Wrapper>
+								<span class="badge badge-primary" style="margin-right: 5px;">Verified</span>
+								<Tooltip>This is a verified bot!</Tooltip>
+							</Wrapper>
+						{/if}
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p class="bot-tagline">
+					{bot?.tagline || 'No Tagline'}
+				</p>
+			</div>
+			<div class="card-footer">
+				<Actions style="padding: 0;">
+					<Button
+						variant="outlined"
+						on:click={() => {
+							location.href = `/bots/${bot?.slug || bot?.id}`;
+						}}
+					>
+						<Label>View</Label>
+					</Button>
+					<Button
+						on:click={() => {
+							location.href = bot?.invite;
+						}}
+					>
+						<Label>Invite</Label>
+					</Button>
+				</Actions>
+			</div>
+		</div>
+	</Content>
+</Card>
+
+<style>
+	.card-img-top {
+		height: 80px;
+		width: 80px;
+		border-radius: 5px;
+		background-color: rgba(0, 0, 0, 0.2);
+		object-fit: cover;
+	}
+
+	.card-body {
+		margin: 13px 0;
+	}
+
+	.card-footer {
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.top-data {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.bot-info {
+		display: flex;
+		flex-direction: column;
+		margin-left: 10px;
+		overflow: hidden;
+	}
+
+	.bot-username {
+		overflow: hidden;
+		font-size: large;
+		text-overflow: ellipsis;
+		padding-bottom: 5px;
+	}
+
+	.bot-info-item:not(:last-child) {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding-bottom: 5px;
+	}
+
+	.bot-tagline {
+		/* auto line break */
+		word-wrap: break-word;
+	}
+</style>

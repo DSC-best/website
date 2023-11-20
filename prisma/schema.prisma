@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//? User Schema
+model User {
+  id            String           @id // Discord user ID
+  username      String
+  global_name   String
+  discriminator String
+  avatar        String?
+  locale        String?
+  role          Int              @default(0)
+  banned        Boolean          @default(false)
+  created_time  DateTime         @default(now())
+  modified_time DateTime         @updatedAt
+  approvals     BotApprovalLog[]
+  approved_bots Bot[]            @relation("BotsApproved")
+  owned_bots    Bot[]            @relation("BotOwner")
+  bot_votes     BotVote[]
+}
+
+//? Bot Schemas
+enum BotApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  BANNED
+}
+
+model Bot {
+  id              String            @id // Discord bot ID
+  slug            String            @unique
+  username        String
+  discriminator   String
+  global_name     String
+  avatar          String
+  votes           BotVote[]
+  vote_count      Int               @default(0)
+  tagline         String            @db.VarChar(500)
+  description     String            @db.VarChar(4000)
+  tags            String[]
+  //? Badges
+  nsfw            Boolean           @default(false)
+  verified        Boolean           @default(false)
+  featured        Boolean           @default(false)
+  //? Stats
+  guild_count     Int               @default(0)
+  shard_count     Int               @default(0)
+  //? Links
+  links           String[]
+  invite          String
+  //? Discord Policy Links
+  tos_link        String?
+  privacy_link    String?
+  //? Aproval
+  approval_status BotApprovalStatus @default(PENDING)
+  approver_id     String?
+  approver        User?             @relation("BotsApproved", fields: [approver_id], references: [id])
+  approval_reason String?
+  //? owners
+  owner_id        String
+  owner           User              @relation("BotOwner", fields: [owner_id], references: [id])
+  //? Dates
+  approved_time   DateTime?
+  created_time    DateTime          @default(now())
+  modified_time   DateTime          @updatedAt
+}
+
+model BotApprovalLog {
+  id            String            @id
+  bot_id        String
+  op_id         String
+  operator      User              @relation(fields: [op_id], references: [id])
+  status        BotApprovalStatus
+  reason        String?
+  created_time  DateTime          @default(now())
+  modified_time DateTime          @updatedAt
+}
+
+model BotVote {
+  id            String   @id
+  bot_id        String
+  voter_id      String
+  voter         User     @relation(fields: [voter_id], references: [id])
+  created_time  DateTime @default(now())
+  modified_time DateTime @updatedAt
+  Bot           Bot?     @relation(fields: [botId], references: [id])
+  botId         String?
+}

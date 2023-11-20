@@ -1,0 +1,11 @@
+<script>
+	import Footer from '$lib/components/footer.svelte';
+	import Header from '$lib/components/header.svelte';
+    
+	/** @type {import('./$types').LayoutData} */
+	export let data;
+</script>
+
+<Header actor={data.actor} />
+<slot />
+<Footer />

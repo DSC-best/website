@@ -1,0 +1,44 @@
+@use 'sass:color';
+
+@use '@material/theme/color-palette';
+
+// Svelte Colors! (Dark Theme)
+@use '@material/theme/index' as theme with (
+	$primary: #6e80ad,
+	$secondary: color.scale(#676778, $whiteness: -10%),
+	$surface: #172137,
+	$on-surface: #acb9d5,
+	$background: #0f1a31,
+	$error: color-palette.$red-700
+);
+
+:root {
+	--mdc-theme-primary: #{theme.$primary};
+	--mdc-theme-white: #fff;
+	--mdc-theme-primary-font: #fff;
+	--mdc-theme-secondary: #{theme.$secondary};
+	--mdc-theme-surface: #{theme.$surface};
+	--mdc-theme-on-surface: #{theme.$on-surface};
+	--mdc-theme-background: #{theme.$background};
+	--mdc-theme-error: #{theme.$error};
+	--mdc-theme-error-font: #fff;
+	--mdc-muted-text: rgba(255, 255, 255, 0.6);
+}
+
+html,
+body {
+	background-color: theme.$background;
+	color: theme.$on-surface;
+	font-family: 'Roboto', sans-serif;
+}
+
+.dsc-navbar {
+	background-color: theme.$surface;
+}
+
+a {
+	color: #40b3ff;
+}
+a:visited {
+	color: color.scale(#40b3ff, $lightness: -35%);
+}
