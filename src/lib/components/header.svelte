@@ -24,8 +24,8 @@
 		goto(`/users/${actor?.id}`);
 	}
 
-	function viewDashboard() {
-		goto(`/dashboard`);
+	function submitBotPage() {
+		goto(`/submit/bot`);
 	}
 
 	function logout() {
@@ -43,6 +43,10 @@
 				<IconButton on:click={githubLink} class="material-icons">code</IconButton>
 				<Tooltip style="z-index: 101;">Github Source Code</Tooltip>
 			</Wrapper>
+			<Wrapper>
+				<IconButton on:click={submitBotPage} class="material-icons">add</IconButton>
+				<Tooltip style="z-index: 101;">Submit Bot</Tooltip>
+			</Wrapper>
 		</div>
 	</div>
 
@@ -53,15 +57,12 @@
 			{:else}
 				<span class="material-icons">account_circle</span>
 			{/if}
-			<span class="nav-user-name">{(actor?.global_name || actor?.username) ?? 'LOGIN'}</span>
+			<span class="nav-user-name">{actor?.username ?? 'LOGIN'}</span>
 		</Button>
 		<Menu bind:this={menu}>
 			<List>
 				<Item on:SMUI:action={viewProfile}>
 					<Text>Profile</Text>
-				</Item>
-				<Item on:SMUI:action={viewDashboard}>
-					<Text>Dashboard</Text>
 				</Item>
 				<Separator />
 				<Item on:SMUI:action={logout}>
@@ -77,10 +78,10 @@
 		padding: 10px;
 		padding-left: 15px;
 		padding-right: 15px;
-		position: sticky;
-		top: 0;
-		background-color: #0a1222;
-		z-index: 100;
+		/* position: sticky; */
+		/* top: 0; */
+		/* background-color: #0a1222; */
+		/* z-index: 100; */
 	}
 
 	.nav-user-name {

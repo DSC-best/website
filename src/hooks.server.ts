@@ -13,6 +13,7 @@ export async function handle({ event, resolve }) {
 			if (!tokenData) return resolve(event);
 
 			if (tokenData?.objectType === IJwtObjectType.USER) {
+				event.locals.token = tokenCookie;
 				event.locals.actor = await prisma.user.findUnique({
 					where: {
 						id: tokenData.objectId
@@ -21,6 +22,7 @@ export async function handle({ event, resolve }) {
 
 				if (!event.locals.actor) {
 					event.locals.actor = null;
+					event.locals.token = null;
 					event.cookies.delete('token');
 				}
 

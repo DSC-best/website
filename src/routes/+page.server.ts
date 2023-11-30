@@ -1,5 +1,7 @@
 import prisma from '$lib/server/prisma';
+import SafeBot from '$lib/structures/bot';
 import { BotApprovalStatus } from '@prisma/client';
+import botTags from '$lib/server/botTags';
 
 export async function load({}) {
 	const newBots = await prisma.bot.findMany({
@@ -13,7 +15,8 @@ export async function load({}) {
 	});
 
 	return {
-		newBots: newBots,
-		topBots: newBots
+		newBots: newBots.map((bot) => SafeBot(bot)),
+		topBots: newBots.map((bot) => SafeBot(bot)),
+		botTags
 	};
 }

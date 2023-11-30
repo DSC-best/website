@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Bot" ADD COLUMN     "approval_request_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

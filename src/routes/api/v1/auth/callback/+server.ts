@@ -1,5 +1,6 @@
 import { CLIENT_ID, CLIENT_SECRET, APP_URL } from '$env/static/private';
 import { IJwtObjectType, createJwtToken } from '$lib/server/jwt';
+import makeAvatarUrl from '$lib/server/makeAvatar.js';
 import prisma from '$lib/server/prisma';
 import { Roles } from '$lib/server/roles';
 import { redirect } from '@sveltejs/kit';
@@ -39,14 +40,7 @@ export async function GET({ url, cookies }) {
 
 	if (!userData?.id) throw redirect(302, '/');
 
-	console.log(userData)
-
-	let avatarUrl = userData?.avatar;
-
-	//? a_ prefix means animated avatar
-	if (avatarUrl?.startsWith('a_'))
-		avatarUrl = `https://cdn.discordapp.com/avatars/${userData.id}/${avatarUrl}.gif`;
-	else avatarUrl = `https://cdn.discordapp.com/avatars/${userData.id}/${avatarUrl}.webp`;
+	let avatarUrl = makeAvatarUrl(userData?.id, userData?.avatar);
 
 	//? Save User in Database
 	const saved = await prisma.user.upsert({
@@ -55,6 +49,7 @@ export async function GET({ url, cookies }) {
 		},
 		create: {
 			id: userData?.id,
+			banner_color: userData?.banner_color,
 			username: userData?.username,
 			global_name: userData?.global_name,
 			discriminator: userData?.discriminator,
@@ -64,6 +59,7 @@ export async function GET({ url, cookies }) {
 		},
 		update: {
 			username: userData?.username,
+			banner_color: userData?.banner_color,
 			global_name: userData?.global_name,
 			discriminator: userData?.discriminator,
 			avatar: avatarUrl,

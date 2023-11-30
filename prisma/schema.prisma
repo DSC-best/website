@@ -14,10 +14,11 @@ datasource db {
 model User {
   id            String           @id // Discord user ID
   username      String
-  global_name   String
+  global_name   String?
   discriminator String
   avatar        String?
   locale        String?
+  banner_color  String?
   role          Int              @default(0)
   banned        Boolean          @default(false)
   created_time  DateTime         @default(now())
@@ -37,42 +38,44 @@ enum BotApprovalStatus {
 }
 
 model Bot {
-  id              String            @id // Discord bot ID
-  slug            String            @unique
-  username        String
-  discriminator   String
-  global_name     String
-  avatar          String
-  votes           BotVote[]
-  vote_count      Int               @default(0)
-  tagline         String            @db.VarChar(500)
-  description     String            @db.VarChar(4000)
-  tags            String[]
+  id                    String            @id // Discord bot ID
+  slug                  String            @unique
+  username              String
+  discriminator         String
+  global_name           String?
+  avatar                String
+  banner_color          String?
+  votes                 BotVote[]
+  vote_count            Int               @default(0)
+  tagline               String            @db.VarChar(500)
+  description           String            @db.VarChar(4000)
+  tags                  String[]
   //? Badges
-  nsfw            Boolean           @default(false)
-  verified        Boolean           @default(false)
-  featured        Boolean           @default(false)
+  nsfw                  Boolean           @default(false)
+  verified              Boolean           @default(false)
+  featured              Boolean           @default(false)
   //? Stats
-  guild_count     Int               @default(0)
-  shard_count     Int               @default(0)
+  guild_count           Int               @default(0)
+  shard_count           Int               @default(0)
   //? Links
-  links           String[]
-  invite          String
+  links                 String[]
+  invite                String
   //? Discord Policy Links
-  tos_link        String?
-  privacy_link    String?
+  tos_link              String?
+  privacy_link          String?
   //? Aproval
-  approval_status BotApprovalStatus @default(PENDING)
-  approver_id     String?
-  approver        User?             @relation("BotsApproved", fields: [approver_id], references: [id])
-  approval_reason String?
+  approval_status       BotApprovalStatus @default(PENDING)
+  approver_id           String?
+  approver              User?             @relation("BotsApproved", fields: [approver_id], references: [id])
+  approval_reason       String?
+  approval_request_time DateTime          @default(now())
   //? owners
-  owner_id        String
-  owner           User              @relation("BotOwner", fields: [owner_id], references: [id])
+  owner_id              String
+  owner                 User              @relation("BotOwner", fields: [owner_id], references: [id])
   //? Dates
-  approved_time   DateTime?
-  created_time    DateTime          @default(now())
-  modified_time   DateTime          @updatedAt
+  approved_time         DateTime?
+  created_time          DateTime          @default(now())
+  modified_time         DateTime          @updatedAt
 }
 
 model BotApprovalLog {

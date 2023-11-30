@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Button from '@smui/button';
 
 	export let title: string;
@@ -6,6 +7,10 @@
 	// Right Button
 	export let rightButtonTitle: string | undefined = undefined;
 	export let rightButtonLink: string | undefined = undefined;
+
+	function rightButtonClick() {
+		if (rightButtonLink) goto(rightButtonLink);
+	}
 </script>
 
 <div class="card-container contents-with-header">
@@ -16,11 +21,7 @@
 		</div>
 		<div class="right-button">
 			{#if rightButtonLink && rightButtonTitle}
-				<Button
-					variant="outlined"
-					color="primary"
-					on:click={() => (window.location = rightButtonLink)}
-				>
+				<Button variant="outlined" color="primary" on:click={rightButtonClick}>
 					<span style="text-transform: none;">
 						{rightButtonTitle}
 					</span>

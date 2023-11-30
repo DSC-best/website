@@ -3,14 +3,24 @@
 	/** @type {import('./$types').PageData} */
 	export let data: any;
 
+	import BotSearchBar from '$lib/components/botSearchBar.svelte';
 	import BotGrid from '$lib/components/cards/botGrid.svelte';
 	import ContentsWithHeader from '$lib/components/contentsWithHeader.svelte';
+	import TagList from '$lib/components/tagList.svelte';
 </script>
 
-<div
-	style="height: 150px; text-align: center; display: flex; align-items: center; justify-content: center; opacity: .04;"
->
-	<h3>Hier moet een search bar komen, maar werk ik later wel aan, doe maar alsof het r is</h3>
+<div class="mdc-layout-grid" style="margin-top: 20px; margin-bottom: 20px;">
+	<BotSearchBar />
+	<div
+		style="
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	"
+	>
+		<TagList tags={data.botTags} />
+	</div>
 </div>
 
 <ContentsWithHeader

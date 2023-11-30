@@ -22,6 +22,7 @@
 	"devDependencies": {
 		"@smui-extra/autocomplete": "^7.0.0-beta.15",
 		"@smui-extra/badge": "^7.0.0-beta.15",
+		"@smui/banner": "^7.0.0-beta.15",
 		"@smui/button": "^7.0.0-beta.15",
 		"@smui/card": "^7.0.0-beta.15",
 		"@smui/checkbox": "^7.0.0-beta.15",
@@ -32,6 +33,7 @@
 		"@smui/icon-button": "^7.0.0-beta.15",
 		"@smui/layout-grid": "^7.0.0-beta.15",
 		"@smui/menu": "^7.0.0-beta.15",
+		"@smui/paper": "^7.0.0-beta.15",
 		"@smui/segmented-button": "^7.0.0-beta.15",
 		"@smui/select": "^7.0.0-beta.15",
 		"@smui/switch": "^7.0.0-beta.15",
@@ -58,10 +60,15 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^5.6.0",
+		"@smui/fab": "^7.0.0-beta.15",
 		"axios": "^1.6.2",
 		"cookie": "^0.6.0",
+		"discord.js": "^14.14.1",
 		"jsonwebtoken": "^9.0.2",
+		"moment": "^2.29.4",
+		"nodejs-snowflake": "^2.0.1",
 		"prisma": "^5.6.0",
+		"svelte-markdown": "^0.4.0",
 		"svelte-material-ui": "^7.0.0-beta.15"
 	}
 }

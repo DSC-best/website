@@ -1,5 +1,6 @@
 import { BOT_TOKEN } from '$env/static/private';
 import axios from 'axios';
+import bot from './bot';
 
 export async function getDiscordUserById(uid: string | number) {
 	if (!uid) return null;
@@ -10,4 +11,20 @@ export async function getDiscordUserById(uid: string | number) {
 		}
 	});
 	return data;
+}
+
+export async function getMemberInServer(uid: string) {
+	const guild = await bot.guilds.fetch(process.env.GUILD_ID!);
+
+	if (!guild) throw new Error('Guild not found');
+
+	try {
+		const member = await guild.members.fetch(uid);
+
+		if (!member) throw new Error('Member not found');
+
+		return member;
+	} catch (e) {
+		return null;
+	}
 }

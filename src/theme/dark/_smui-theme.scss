@@ -33,7 +33,9 @@ body {
 }
 
 .dsc-navbar {
-	background-color: theme.$surface;
+	// background-color: theme.$surface;
+	// linear top to bottom
+	background: linear-gradient(180deg, theme.$surface 0%, theme.$surface 40%, theme.$background 100%);
 }
 
 a {

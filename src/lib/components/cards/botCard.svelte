@@ -2,7 +2,7 @@
 	import type { Bot } from '@prisma/client';
 	import Card, { Content, Actions } from '@smui/card';
 	import Button, { Label } from '@smui/button';
-	import Tooltip, { Wrapper } from '@smui/tooltip';
+	import BotBadges from '../botBadges.svelte';
 
 	export let bot: Bot;
 </script>
@@ -21,20 +21,7 @@
 						{' • '}
 						{bot?.guild_count || 0} servers
 					</p>
-					<div class="bot-info-item">
-						{#if bot?.nsfw}
-							<Wrapper>
-								<span class="badge badge-danger" style="margin-right: 5px;">NSFW</span>
-								<Tooltip>This bot is not safe for work!</Tooltip>
-							</Wrapper>
-						{/if}
-						{#if bot?.verified}
-							<Wrapper>
-								<span class="badge badge-primary" style="margin-right: 5px;">Verified</span>
-								<Tooltip>This is a verified bot!</Tooltip>
-							</Wrapper>
-						{/if}
-					</div>
+					<BotBadges {bot} />
 				</div>
 			</div>
 			<div class="card-body">

@@ -30,6 +30,15 @@ body {
 	color: var(--mdc-theme-error-font);
 }
 
+.text-danger {
+	color: var(--mdc-theme-error);
+}
+
+.paper-theme--outline-danger {
+	--mdc-theme-primary: var(--mdc-theme-error) !important;
+	--mdc-theme-on-surface: var(--mdc-theme-error) !important;
+}
+
 .badge.badge-primary {
 	background-color: var(--mdc-theme-primary);
 	color: var(--mdc-theme-primary-font);
@@ -41,4 +50,18 @@ body {
 
 .text-muted {
 	color: var(--mdc-muted-text);
+}
+
+.mdc-form-field {
+	margin-bottom: 10px;
+}
+
+.align-flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.bot-display-info-item {
+	margin-left: 10px;
 }

@@ -6,6 +6,29 @@ export enum Roles {
 	Owner = 1 << 4
 }
 
+export const RoleNameMap = Object.freeze({
+	[Roles.Approver]: {
+		priority: 1,
+		label: 'Approver',
+		materialIcon: 'check_circle'
+	},
+	[Roles.Moderator]: {
+		priority: 2,
+		label: 'Moderator',
+		materialIcon: 'security'
+	},
+	[Roles.Admin]: {
+		priority: 99,
+		label: 'Admin',
+		materialIcon: 'verified_user'
+	},
+	[Roles.Owner]: {
+		priority: 100,
+		label: 'Owner',
+		materialIcon: 'star'
+	}
+});
+
 export class RoleUtility {
 	static addRole(roles: number, role: Roles): number {
 		return roles | role;
