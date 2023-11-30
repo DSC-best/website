@@ -3,7 +3,7 @@
  * This script replaces the onDeploy script
  */
 
-const axios = require("axios");
+import axios from "axios";
 
 const args = process.argv.slice(2);
 
