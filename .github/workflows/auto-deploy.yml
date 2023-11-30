@@ -1,0 +1,23 @@
+name: Auto Deploy
+
+on:
+  push:
+    branches: ['master']
+
+env:
+  PTERO_PATH: /var/lib/pterodactyl/volumes/${{ secrets.PTERO_VOLUME }}
+  SERVER_ID: ${{ secrets.PTERO_SERVER_ID }}
+  SKYV_TOKEN: ${{ secrets.SKYV_TOKEN }}
+
+jobs:
+  deployment:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - run: cp . $PTERO_PATH -r
+      - run: cd $PTERO_PATH && node skyv-restarter.js --token=$SKYV_TOKEN --server=$SERVER_ID
