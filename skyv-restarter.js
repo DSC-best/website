@@ -35,6 +35,7 @@ if (!token || !serverId) {
 
 		console.log(`Kill status: ${resp.status}`);
 	} catch (e) {
+        console.log(e)
 		throw new Error(e?.response?.data?.status + ': ' + e?.response?.data?.message || e);
 	}
 })();
