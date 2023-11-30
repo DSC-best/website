@@ -3,39 +3,35 @@
  * This script replaces the onDeploy script
  */
 
-import axios from "axios";
-
 const args = process.argv.slice(2);
 
-const token = args.find((arg) => arg.startsWith("--token="))?.split("=")[1];
-const serverId = args.find((arg) => arg.startsWith("--server="))?.split("=")[1];
+const token = args.find((arg) => arg.startsWith('--token='))?.split('=')[1];
+const serverId = args.find((arg) => arg.startsWith('--server='))?.split('=')[1];
 
 if (!token || !serverId) {
-	console.log("Missing arguments, exiting.");
+	console.log('Missing arguments, exiting.');
 	process.exit(1);
 }
-
-const http = axios.create({
-	baseURL: "https://ptero.skyv.top",
-});
 
 (async () => {
 	try {
 		// Make API request to kill-server
-		const { status, data } = await http.post(
-			`/servers/${serverId}/kill`,
-			{},
-			{
-				headers: {
-					Authorization: `${token}`,
-				},
-			},
-		);
+		const resp = await fetch(`https://ptero.skyv.top/servers/${serverId}/kill`, {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json'
+			}
+		});
 
-		console.log(`Kill status: ${status}, message: ${data?.message}`);
+		if (!resp.ok) {
+            const body = await resp.json();
+
+			throw new Error(`Error: ${resp.status} ${body?.message || 'Unknown error'}`);
+		}
+
+		console.log(`Kill status: ${resp.status}`);
 	} catch (e) {
-		throw new Error(
-			e?.response?.data?.status + ": " + e?.response?.data?.message || e,
-		);
+		throw new Error(e?.response?.data?.status + ': ' + e?.response?.data?.message || e);
 	}
 })();
