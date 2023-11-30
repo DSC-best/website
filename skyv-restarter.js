@@ -8,6 +8,9 @@ const args = process.argv.slice(2);
 const token = args.find((arg) => arg.startsWith('--token='))?.split('=')[1];
 const serverId = args.find((arg) => arg.startsWith('--server='))?.split('=')[1];
 
+console.log('token', token);
+console.log('serverId', serverId);
+
 if (!token || !serverId) {
 	console.log('Missing arguments, exiting.');
 	process.exit(1);
