@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type { Bot } from '@prisma/client';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import BotCard from './botCard.svelte';
 
-	export let bots: any[];
+	export let bots: Bot[];
 </script>
 
 {#if bots.length === 0}
