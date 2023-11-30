@@ -1,12 +1,11 @@
 import prisma from '$lib/server/prisma';
 import SafeBot from '$lib/structures/bot';
-import { BotApprovalStatus } from '@prisma/client';
 import botTags from '$lib/server/botTags';
 
 export async function load({}) {
 	const newBots = await prisma.bot.findMany({
 		where: {
-			approval_status: BotApprovalStatus.APPROVED
+			approval_status: "APPROVED"
 		},
 		orderBy: {
 			approved_time: 'desc'
