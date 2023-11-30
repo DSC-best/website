@@ -3,6 +3,8 @@
  * This script replaces the onDeploy script
  */
 
+import fetch from 'node-fetch';
+
 const args = process.argv.slice(2);
 
 const token = args.find((arg) => arg.startsWith('--token='))?.split('=')[1];

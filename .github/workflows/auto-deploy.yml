@@ -19,5 +19,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
+      - run: npm i node-fetch
       - run: cp . $PTERO_PATH -r
       - run: cd $PTERO_PATH && node skyv-restarter.js --token=$SKYV_TOKEN --server=$SERVER_ID
