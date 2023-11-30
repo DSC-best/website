@@ -24,7 +24,7 @@ if (!token || !serverId) {
 		const resp = await fetch(`https://ptero.skyv.top/servers/${serverId}/kill`, {
 			method: 'POST',
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: token,
 				'Content-Type': 'application/json'
 			}
 		});
