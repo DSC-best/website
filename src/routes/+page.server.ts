@@ -14,9 +14,19 @@ export async function load({}) {
 		take: 6
 	});
 
+	const topBots = await prisma.bot.findMany({
+		where: {
+			approval_status: BotApprovalStatus.APPROVED
+		},
+		orderBy: {
+			vote_count: 'desc'
+		},
+		take: 6
+	});
+
 	return {
 		newBots: newBots.map((bot) => SafeBot(bot)),
-		topBots: newBots.map((bot) => SafeBot(bot)),
+		topBots: topBots.map((bot) => SafeBot(bot)),
 		botTags
 	};
 }
