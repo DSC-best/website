@@ -1,5 +1,5 @@
 import { Client, Events, GatewayIntentBits } from 'discord.js';
-const BOT_TOKEN = process.env.BOT_TOKEN;
+import { BOT_TOKEN } from '$env/static/private';
 
 //? The amount of these intents is crazy....
 const client = new Client({

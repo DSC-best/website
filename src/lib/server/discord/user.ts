@@ -1,4 +1,4 @@
-import { BOT_TOKEN } from '$env/static/private';
+import { BOT_TOKEN, GUILD_ID } from '$env/static/private';
 import axios from 'axios';
 import bot from './bot';
 
@@ -14,7 +14,7 @@ export async function getDiscordUserById(uid: string | number) {
 }
 
 export async function getMemberInServer(uid: string) {
-	const guild = await bot.guilds.fetch(process.env.GUILD_ID!);
+	const guild = await bot.guilds.fetch(GUILD_ID);
 
 	if (!guild) throw new Error('Guild not found');
 
