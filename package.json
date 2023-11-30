@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "vite dev --host",
 		"build": "vite build",
-		"server:deployment": "npm i && npm run db:generate && npm run db:deploy && npm run build && PORT=25606 node build",
+		"prisma:inline": "cp ./node_modules/.prisma/client/*.js ./node_modules/@prisma/client",
+		"server:deployment": "npm i && npm run db:generate && npm run db:deploy && npm run prisma:inline && npm run build && PORT=25606 node build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
