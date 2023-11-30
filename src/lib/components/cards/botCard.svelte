@@ -1,10 +1,9 @@
 <script lang="ts">
-	import type { Bot } from '@prisma/client';
 	import Card, { Content, Actions } from '@smui/card';
 	import Button, { Label } from '@smui/button';
 	import BotBadges from '../botBadges.svelte';
 
-	export let bot: Bot;
+	export let bot: any;
 </script>
 
 <Card>
