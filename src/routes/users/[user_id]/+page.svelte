@@ -98,6 +98,8 @@
 	.user-display-avatar {
 		width: 80px;
 		height: 80px;
+		min-width: 80px;
+		min-height: 80px;
 		border-radius: 50%;
 		background-color: rgba(0, 0, 0, 0.2);
 		overflow: hidden;
