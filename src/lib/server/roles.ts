@@ -3,7 +3,8 @@ export enum Roles {
 	Approver = 1 << 1,
 	Moderator = 1 << 2,
 	Admin = 1 << 3,
-	Owner = 1 << 4
+	Owner = 1 << 4,
+	System = 1 << 5
 }
 
 export const RoleNameMap = Object.freeze({
@@ -31,6 +32,12 @@ export const RoleNameMap = Object.freeze({
 		label: 'Owner',
 		materialIcon: 'star',
 		description: 'This user owns the site.'
+	},
+	[Roles.System]: {
+		priority: 101,
+		label: 'System',
+		materialIcon: 'settings',
+		description: 'This is the system user for this website.'
 	}
 });
 
@@ -52,5 +59,14 @@ export class RoleUtility {
 			.filter((key: any) => !isNaN(Number(Roles[key])))
 			.map((key: any) => Number(Roles[key]))
 			.filter((role) => RoleUtility.hasRole(roles, role));
+	}
+
+	static rolesToNumber(): number {
+		// all roles
+		let roles = 0;
+		for (const role in Roles) {
+			roles = RoleUtility.addRole(roles, Roles[role as keyof typeof Roles]);
+		}
+		return roles;
 	}
 }

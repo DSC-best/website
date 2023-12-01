@@ -15,7 +15,7 @@ export default class ChannelLog {
 		title: string,
 		message: string,
 		userId?: string | null,
-		color: InternalColors = InternalColors.Green,
+		color: InternalColors = InternalColors.Blurple,
 	) {
 		const guild = await bot.guilds.fetch(GUILD_ID);
 
