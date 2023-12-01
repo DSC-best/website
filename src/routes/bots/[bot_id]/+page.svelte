@@ -71,6 +71,36 @@
 	}
 </script>
 
+<Banner
+	open={approverBannerOpen}
+	fixed
+	mobileStacked
+	autoClose={false}
+	centered
+	content$style="max-width: max-content;"
+>
+	<Label slot="label">
+		<b> Hey Approver! </b>
+		<br />
+		This bot is pending approval and requires your approval to be listed on the site
+	</Label>
+	<div slot="actions">
+		<Button
+			variant="outlined"
+			on:click={() => {
+				modalApprovalVersion = true;
+				approverModalOpen = true;
+			}}>Approve</Button
+		>
+		<Button
+			on:click={() => {
+				modalApprovalVersion = false;
+				approverModalOpen = true;
+			}}>Reject</Button
+		>
+	</div>
+</Banner>
+
 <Dialog scrimClickAction="" escapeKeyAction="" open={approverModalOpen}>
 	<DTitle>
 		{modalApprovalVersion ? 'Approve Bot' : 'Reject Bot'}
@@ -158,35 +188,6 @@
 			</div>
 		</div>
 	</div>
-	<Banner
-		open={approverBannerOpen}
-		fixed
-		mobileStacked
-		autoClose={false}
-		centered
-		content$style="max-width: max-content;"
-	>
-		<Label slot="label">
-			<b> Hey Approver! </b>
-			<br />
-			This bot is pending approval and requires your approval to be listed on the site
-		</Label>
-		<div slot="actions">
-			<Button
-				variant="outlined"
-				on:click={() => {
-					modalApprovalVersion = true;
-					approverModalOpen = true;
-				}}>Approve</Button
-			>
-			<Button
-				on:click={() => {
-					modalApprovalVersion = false;
-					approverModalOpen = true;
-				}}>Reject</Button
-			>
-		</div>
-	</Banner>
 </div>
 
 <div class="bot-about">

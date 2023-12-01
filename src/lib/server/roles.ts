@@ -10,22 +10,27 @@ export const RoleNameMap = Object.freeze({
 	[Roles.Approver]: {
 		priority: 1,
 		label: 'Approver',
-		materialIcon: 'check_circle'
+		materialIcon: 'check_circle',
+		description:
+			'This user can review bots to ensure they meet the requirements to be listed on the site.'
 	},
 	[Roles.Moderator]: {
 		priority: 2,
 		label: 'Moderator',
-		materialIcon: 'security'
+		materialIcon: 'security',
+		description: 'This user can moderate the site and Discord server.'
 	},
 	[Roles.Admin]: {
 		priority: 99,
 		label: 'Admin',
-		materialIcon: 'verified_user'
+		materialIcon: 'verified_user',
+		description: 'This user can manage the site and Discord server.'
 	},
 	[Roles.Owner]: {
 		priority: 100,
 		label: 'Owner',
-		materialIcon: 'star'
+		materialIcon: 'star',
+		description: 'This user owns the site.'
 	}
 });
 

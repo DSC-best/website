@@ -28,3 +28,17 @@ export async function getMemberInServer(uid: string) {
 		return null;
 	}
 }
+
+export async function giveRoleToMember(uid: string, roleId: string) {
+	const member = await getMemberInServer(uid);
+
+	if (!member) throw new Error('Member not found in server');
+
+	const role = await member.guild.roles.fetch(roleId);
+
+	if (!role) throw new Error('Role not found');
+
+	await member.roles.add(role);
+
+	return true;
+}

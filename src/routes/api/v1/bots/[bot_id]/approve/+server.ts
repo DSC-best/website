@@ -1,4 +1,6 @@
+import { BOT_ROLE_ID } from '$env/static/private';
 import ChannelLog from '$lib/server/discord/channelLog';
+import { getMemberInServer, giveRoleToMember } from '$lib/server/discord/user.js';
 import requireActorRole from '$lib/server/middleware/requireActorRole';
 import prisma from '$lib/server/prisma';
 import { Roles } from '$lib/server/roles';
@@ -38,6 +40,11 @@ export async function POST({ locals, params, request }) {
 
 	if (bot.approval_status !== BotApprovalStatus.PENDING)
 		return json({ message: 'Bot is not pending approval' }, { status: 400 });
+
+	const inServer = await getMemberInServer(bot.id);
+	if (!inServer) return json({ message: 'Bot is not in server' }, { status: 400 });
+
+	await giveRoleToMember(bot.id, BOT_ROLE_ID);
 
 	await prisma.bot.update({
 		where: {

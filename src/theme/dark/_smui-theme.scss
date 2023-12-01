@@ -35,7 +35,12 @@ body {
 .dsc-navbar {
 	// background-color: theme.$surface;
 	// linear top to bottom
-	background: linear-gradient(180deg, theme.$surface 0%, theme.$surface 40%, theme.$background 100%);
+	// background: linear-gradient(180deg, theme.$surface 0%, theme.$surface 40%, theme.$background 100%);
+	background-color: theme.$surface;
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	border-bottom: 1px solid rgba(172, 185, 213, 0.12);
 }
 
 a {
