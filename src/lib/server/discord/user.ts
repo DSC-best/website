@@ -1,4 +1,4 @@
-import { BOT_TOKEN, GUILD_ID } from '$env/static/private';
+import { BOT_ROLE_ID, BOT_TOKEN, GUILD_ID } from '$env/static/private';
 import axios from 'axios';
 import bot from './bot';
 
@@ -34,7 +34,11 @@ export async function giveRoleToMember(uid: string, roleId: string) {
 
 	if (!member) throw new Error('Member not found in server');
 
-	const role = await member.guild.roles.fetch(roleId);
+	const guild = await bot.guilds.fetch(GUILD_ID);
+
+	if (!guild) throw new Error('Guild not found');
+
+	const role = guild.roles.cache.get(roleId);
 
 	if (!role) throw new Error('Role not found');
 

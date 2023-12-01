@@ -71,7 +71,8 @@ export async function POST({ locals, params, request }) {
 	await channelLog.sendLog(
 		`Bot Approved!`,
 		`**Bot:** <@!${bot.id}> (Owner: <@!${bot.owner_id}>)\n**Approver:** <@!${locals.actor!
-			.id!}>\n**Reason:** ${note}`
+			.id!}>\n**Reason:** ${note}`,
+		bot?.owner_id
 	);
 
 	return json({ message: 'Bot approved' });

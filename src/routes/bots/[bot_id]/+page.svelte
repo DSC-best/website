@@ -15,6 +15,7 @@
 	import TagList from '$lib/components/tagList.svelte';
 	import TextField from '@smui/textfield';
 	import HelperText from '@smui/textfield/helper-text';
+	import Fab, { Label as FabLabel, Icon } from '@smui/fab';
 	import Dialog, { Title as DTitle, Content as DContent, Actions as DActions } from '@smui/dialog';
 	import axios from 'axios';
 
@@ -174,16 +175,30 @@
 <div class="bot-banner">
 	<div class="bot-display" style={`background-color: ${bannerColor};`}>
 		<div class={`${bannerColor ? 'bot-display-content--banner' : ''}`}>
-			<div class={`bot-display-content`}>
-				<div class="bot-display-avatar">
-					<img src={data?.bot?.avatar} alt="Avatar" />
+			<div class="display-between-for-actions">
+				<div class={`bot-display-content`}>
+					<div class="bot-display-avatar">
+						<img src={data?.bot?.avatar} alt="Avatar" />
+					</div>
+					<div class="bot-display-info">
+						<h2 class="bot-display-username">{data?.bot?.username}</h2>
+						<p class="bot-display-info-item bot-tagline">
+							{data?.bot?.tagline}
+						</p>
+						<BotBadges bot={data?.bot} className="bot-display-info-item" />
+					</div>
 				</div>
-				<div class="bot-display-info">
-					<h2 class="bot-display-username">{data?.bot?.username}</h2>
-					<p class="bot-display-info-item bot-tagline">
-						{data?.bot?.tagline}
-					</p>
-					<BotBadges bot={data?.bot} className="bot-display-info-item" />
+				<div class="actions">
+					<Fab
+						on:click={() => {
+							goto(`/bots/${data?.bot?.id}/invite`);
+						}}
+						color="primary"
+						extended
+					>
+						<Icon class="material-icons">add</Icon>
+						<FabLabel>Invite</FabLabel>
+					</Fab>
 				</div>
 			</div>
 		</div>
@@ -270,6 +285,20 @@
 <style>
 	.bot-banner {
 		margin-bottom: 10px;
+	}
+
+	.display-between-for-actions {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.display-between-for-actions .actions {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 20px;
 	}
 
 	.bot-tagline {

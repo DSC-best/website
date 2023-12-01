@@ -1,9 +1,22 @@
 import { EmbedBuilder, type TextChannel } from 'discord.js';
 import { GUILD_ID, GUILD_LOGS_ID } from '$env/static/private';
 import bot from './bot';
+import { InternalColors } from '../colors';
 
 export default class ChannelLog {
-	async sendLog(title: string, message: string) {
+	/**
+	 * Send a log to the logs channel
+	 * @param title The title of the embed
+	 * @param message The message of the embed
+	 * @param userId The user id to send it privately to (a copy) (optional)
+	 * @param color The color of the embed
+	 */
+	async sendLog(
+		title: string,
+		message: string,
+		userId?: string | null,
+		color: InternalColors = InternalColors.Green,
+	) {
 		const guild = await bot.guilds.fetch(GUILD_ID);
 
 		if (!guild) throw new Error('Guild not found');
@@ -14,6 +27,7 @@ export default class ChannelLog {
 
 		const embed = new EmbedBuilder()
 			.setTitle(title)
+			.setColor(color)
 			.setTimestamp()
 			.setDescription(message)
 			.setFooter({
@@ -21,5 +35,10 @@ export default class ChannelLog {
 			});
 
 		(channel as TextChannel).send({ embeds: [embed] });
+		if (userId) {
+			const user = await guild.members.fetch(userId);
+			if (!user) return;
+			user?.send({ embeds: [embed] });
+		}
 	}
 }

@@ -9,17 +9,21 @@
 	import TagList from '$lib/components/tagList.svelte';
 </script>
 
-<div class="mdc-layout-grid" style="margin-top: 20px; margin-bottom: 20px;">
-	<BotSearchBar />
-	<div
-		style="
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-	"
-	>
-		<TagList tags={data.botTags} />
+<div class="banner-home">
+	<div class="mdc-layout-grid">
+		<div class="align-bars-center">
+			<BotSearchBar />
+			<div
+				style="
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+			"
+			>
+				<TagList tags={data.botTags} />
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -40,3 +44,11 @@
 >
 	<BotGrid bots={data.newBots} />
 </ContentsWithHeader>
+
+<style>
+
+	.align-bars-center {
+		margin-top: 40px;
+		margin-bottom: 20px;
+	}
+</style>

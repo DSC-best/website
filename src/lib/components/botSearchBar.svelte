@@ -21,7 +21,7 @@
 	}
 </script>
 
-<div class="solo-demo-container solo-container">
+<div class="solo-container search-bar">
 	<Paper class="solo-paper" elevation={6}>
 		<Icon class="material-icons">search</Icon>
 		<Input

@@ -1,3 +1,4 @@
+import { InternalColors } from '$lib/server/colors.js';
 import ChannelLog from '$lib/server/discord/channelLog';
 import requireActorRole from '$lib/server/middleware/requireActorRole';
 import prisma from '$lib/server/prisma';
@@ -64,7 +65,9 @@ export async function POST({ locals, params, request }) {
 	await channelLog.sendLog(
 		`Bot Rejected!`,
 		`**Bot:** <@!${bot.id}> (Owner: <@!${bot.owner_id}>)\n**Approver:** <@!${locals.actor!
-			.id!}>\n**Reason:** ${note}`
+			.id!}>\n**Reason:** ${note}`,
+		bot?.owner_id,
+		InternalColors.Red
 	);
 
 	return json({ message: 'Bot rejected' });
