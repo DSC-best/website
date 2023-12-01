@@ -5,6 +5,7 @@ import { BotApprovalStatus } from '@prisma/client';
 import snowflake from '../snowflake';
 import ChannelLog from './channelLog';
 import { InternalColors } from '../colors';
+import makeAvatarUrl from '../makeAvatar';
 
 //? The amount of these intents is crazy....
 const client = new Client({
@@ -55,13 +56,57 @@ client.on(Events.GuildMemberRemove, async (member) => {
 			reason: 'Bot left the server'
 		}
 	});
+	try {
+		await channelLog.sendLog(
+			'Bot Automatically Rejected!',
+			`Bot <@!${bot.id}> left the server, so it was automatically rejected.`,
+			null,
+			InternalColors.Red
+		);
+	} catch (e) {
+		console.trace(e);
+	}
+});
 
-	await channelLog.sendLog(
-		'Bot Automatically Rejected!',
-		`Bot <@!${bot.id}> left the server, so it was automatically rejected.`,
-		null,
-		InternalColors.Red
-	);
+client.on(Events.UserUpdate, async (oldUser, newUser) => {
+	console.log(newUser);
+	try {
+		if (newUser.bot) {
+			const bot = await prisma.bot.findUnique({
+				where: {
+					id: newUser.id
+				}
+			});
+
+			if (!bot) return;
+
+			await prisma.bot.update({
+				where: {
+					id: bot.id
+				},
+				data: {
+					username: newUser?.username,
+					global_name: newUser?.globalName,
+					discriminator: newUser?.discriminator,
+					avatar: makeAvatarUrl(newUser?.id, newUser?.avatar!)
+				}
+			});
+		} else {
+			await prisma.user.update({
+				where: {
+					id: newUser.id
+				},
+				data: {
+					username: newUser?.username,
+					global_name: newUser?.globalName,
+					discriminator: newUser?.discriminator,
+					avatar: makeAvatarUrl(newUser?.id, newUser?.avatar!)
+				}
+			});
+		}
+	} catch (e) {
+		console.trace(e);
+	}
 });
 
 //? Login to the bot
