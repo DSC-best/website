@@ -1,5 +1,6 @@
 import { IJwtObjectType, decodeJwtToken } from '$lib/server/jwt';
 import prisma from '$lib/server/prisma';
+import '$lib/server/discord/bot';
 
 export async function handle({ event, resolve }) {
 	try {
