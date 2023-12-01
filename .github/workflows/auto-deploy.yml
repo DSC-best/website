@@ -20,4 +20,4 @@ jobs:
         with:
           node-version: 16.x
       - run: cp . $PTERO_PATH -r
-      - run: cd $PTERO_PATH/deployer && npm i && node skyv-restarter.js --token=$SKYV_TOKEN --server=$SERVER_ID
+      - run: cd $PTERO_PATH/skyv && npm i && node restarter.js --token=$SKYV_TOKEN --server=$SERVER_ID
