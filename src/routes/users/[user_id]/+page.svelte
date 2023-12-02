@@ -8,11 +8,19 @@
 	import Chip, { Set, Text } from '@smui/chips';
 	import Dialog, { Title as DTitle, Content as DContent, Actions as DActions } from '@smui/dialog';
 	import Button from '@smui/button';
+	import MetaTags from '$lib/components/metaTags.svelte';
 
 	let roleModalOpen = false;
 	let roleModalTitle = 'User Role';
 	let roleModalContent = 'Placeholder content';
 </script>
+
+<MetaTags
+	title={`@${data?.user?.username} - DSC.best`}
+	description={`Find the best Discord bots listed by @${data?.user?.username} on DSC.best`}
+	themeColor={data?.user?.banner_color}
+	image={data?.user?.avatar}
+/>
 
 <Dialog scrimClickAction="" escapeKeyAction="" open={roleModalOpen}>
 	<DTitle>
