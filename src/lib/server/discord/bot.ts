@@ -69,7 +69,6 @@ client.on(Events.GuildMemberRemove, async (member) => {
 });
 
 client.on(Events.UserUpdate, async (oldUser, newUser) => {
-	console.log(newUser);
 	try {
 		if (newUser.bot) {
 			const bot = await prisma.bot.findUnique({
