@@ -18,6 +18,7 @@
 	import Fab, { Label as FabLabel, Icon } from '@smui/fab';
 	import Dialog, { Title as DTitle, Content as DContent, Actions as DActions } from '@smui/dialog';
 	import axios from 'axios';
+	import MetaTags from '$lib/components/metaTags.svelte';
 
 	let bannerColor = data?.bot?.banner_color;
 
@@ -71,6 +72,13 @@
 			});
 	}
 </script>
+
+<MetaTags
+	title={`@${data?.bot?.username} - DSC.best`}
+	description={data?.bot?.tagline}
+	themeColor={data?.bot?.banner_color}
+	image={data?.bot?.avatar}
+/>
 
 <Banner
 	open={approverBannerOpen}
