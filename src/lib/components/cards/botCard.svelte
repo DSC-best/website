@@ -3,6 +3,7 @@
 	import Card, { Content, Actions } from '@smui/card';
 	import Button, { Label } from '@smui/button';
 	import BotBadges from '../botBadges.svelte';
+	import { goto } from '$app/navigation';
 
 	export let bot: Bot;
 </script>
@@ -34,14 +35,14 @@
 					<Button
 						variant="outlined"
 						on:click={() => {
-							location.href = `/bots/${bot?.slug || bot?.id}`;
+							goto(`/bots/${bot?.slug || bot?.id}`);
 						}}
 					>
 						<Label>View</Label>
 					</Button>
 					<Button
 						on:click={() => {
-							location.href = bot?.invite;
+							goto(`/bots/${bot?.id}/invite`);
 						}}
 					>
 						<Label>Invite</Label>
