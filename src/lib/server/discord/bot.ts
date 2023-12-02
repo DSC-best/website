@@ -91,6 +91,14 @@ client.on(Events.UserUpdate, async (oldUser, newUser) => {
 				}
 			});
 		} else {
+			const user = await prisma.user.findUnique({
+				where: {
+					id: newUser.id
+				}
+			});
+
+			if (!user) return;
+
 			await prisma.user.update({
 				where: {
 					id: newUser.id
