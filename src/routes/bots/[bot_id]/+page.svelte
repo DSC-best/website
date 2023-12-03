@@ -257,7 +257,7 @@
 							</span>
 							{#if data?.bot?.approved_time}
 								<br />
-								Approved on 
+								Approved on
 								<span class="text-muted">
 									{dateFormatEurope(data?.bot?.approved_time)}
 								</span>
@@ -365,19 +365,18 @@
 	}
 
 	.bot-display-avatar {
+		/* overflow: hidden; */
+		position: relative;
+	}
+
+	.bot-display-avatar img {
 		width: 80px;
 		height: 80px;
 		min-width: 80px;
 		min-height: 80px;
-		border-radius: 15px;
 		background-color: rgba(0, 0, 0, 0.2);
-		overflow: hidden;
-	}
-
-	.bot-display-avatar img {
-		width: 100%;
-		height: 100%;
 		object-fit: cover;
+		border-radius: 15px;
 	}
 
 	.bot-display-info {
