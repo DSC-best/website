@@ -23,8 +23,5 @@
 		text-align: center;
 		/* always bottom */
 		margin-top: 10px;
-		position: sticky;
-		bottom: 0;
-		width: 100%;
 	}
 </style>
