@@ -8,7 +8,7 @@
 	import Button from '@smui/button';
 	import SvelteMarkdown from 'svelte-markdown';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
-	import Paper, { Content, Title } from '@smui/paper';
+	import Paper, { Content, Subtitle, Title } from '@smui/paper';
 	import UserButton from '$lib/components/userButton.svelte';
 	import { goto } from '$app/navigation';
 	import { dateFormatEurope } from '$lib/utils/date';
@@ -17,6 +17,7 @@
 	import HelperText from '@smui/textfield/helper-text';
 	import Fab, { Label as FabLabel, Icon } from '@smui/fab';
 	import Dialog, { Title as DTitle, Content as DContent, Actions as DActions } from '@smui/dialog';
+	import moment from 'moment';
 	import axios from 'axios';
 	import MetaTags from '$lib/components/metaTags.svelte';
 
@@ -30,6 +31,16 @@
 	let isHandlingApproval = false;
 	let isResubmitting = false;
 	let resubmitErrorMessage = '';
+	let showRecentlyApprovedPaper = false;
+
+	if (data?.bot?.approved_time) {
+		const approvedTime = moment(data?.bot?.approved_time);
+		const now = moment();
+		const diff = now.diff(approvedTime, 'days');
+		if (diff < 7) {
+			showRecentlyApprovedPaper = true;
+		}
+	}
 
 	if (data?.isPendingAndActorIsApprover) {
 		approverBannerOpen = true;
@@ -215,7 +226,22 @@
 
 <div class="bot-about">
 	<LayoutGrid>
-		<Cell span={3}>
+		{#if showRecentlyApprovedPaper}
+			<Cell span={12}>
+				<Paper variant="outlined" color="success" class="paper-theme--outline-success text-success">
+					<Title>🐣</Title>
+					<Subtitle>I recently got approved and am now listed on DSC.best!</Subtitle>
+				</Paper>
+			</Cell>
+		{/if}
+		<Cell
+			spanDevices={{
+				desktop: 3,
+				// full width on mobile
+				phone: 12,
+				tablet: 12
+			}}
+		>
 			<div class="stats">
 				<Paper>
 					<Title>Stats</Title>
@@ -225,10 +251,16 @@
 							<br />
 							{data?.bot?.guild_count || 0} servers
 							<br />
-							Added on {dateFormatEurope(data?.bot?.created_at)}
+							Added on
+							<span class="text-muted">
+								{dateFormatEurope(data?.bot?.created_at)}
+							</span>
 							{#if data?.bot?.approved_time}
 								<br />
-								Approved on {dateFormatEurope(data?.bot?.approved_time)}
+								Approved on 
+								<span class="text-muted">
+									{dateFormatEurope(data?.bot?.approved_time)}
+								</span>
 							{/if}
 							<br />
 							Owned By:
@@ -278,7 +310,14 @@
 				</Paper>
 			</div>
 		</Cell>
-		<Cell span={7}>
+		<Cell
+			spanDevices={{
+				desktop: 9,
+				// full width on mobile
+				phone: 12,
+				tablet: 12
+			}}
+		>
 			<div class="description">
 				<Paper>
 					<Content>
