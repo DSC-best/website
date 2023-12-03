@@ -12,6 +12,13 @@
 	export let isApprover: boolean;
 	export let botQueueCount: number;
 
+	let headerAdminZoneDivider = false;
+
+	// If the user is an approver, we want to show options in a separate section
+	if (isApprover) {
+		headerAdminZoneDivider = true;
+	}
+
 	let menu: Menu;
 
 	function onUserClick() {
@@ -72,6 +79,9 @@
 				<Item on:SMUI:action={viewProfile}>
 					<Text>Profile</Text>
 				</Item>
+				{#if headerAdminZoneDivider}
+					<Separator />
+				{/if}
 				{#if isApprover}
 					<Item on:SMUI:action={viewBotQueue} style="position: relative;">
 						<Text>Bot Queue</Text>
