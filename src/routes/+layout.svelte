@@ -8,10 +8,10 @@
 
 <svelte:head>
 	<title>DSC.best</title>
-	<meta name="theme-color" content="#454FBF">
+	<meta name="theme-color" content="#454FBF" />
 	<meta name="description" content="Find the best Discord bots!" />
 </svelte:head>
 
-<Header actor={data.actor} />
+<Header actor={data.actor} isApprover={data.isApprover} botQueueCount={data.botQueueCount} />
 <slot />
 <Footer />

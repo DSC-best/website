@@ -39,6 +39,11 @@ body {
 	--mdc-theme-on-surface: var(--mdc-theme-error) !important;
 }
 
+.paper-theme--outline-success {
+	--mdc-theme-primary: var(--mdc-theme-success) !important;
+	--mdc-theme-on-surface: var(--mdc-theme-success) !important;
+}
+
 .badge.badge-primary {
 	background-color: var(--mdc-theme-primary);
 	color: var(--mdc-theme-primary-font);
@@ -50,6 +55,10 @@ body {
 
 .text-muted {
 	color: var(--mdc-muted-text);
+}
+
+.text-success {
+	color: var(--mdc-theme-success);
 }
 
 .mdc-form-field {

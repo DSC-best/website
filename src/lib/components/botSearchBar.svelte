@@ -37,12 +37,6 @@
 </div>
 
 <style>
-	.solo-demo-container {
-		padding: 10px 18px;
-		background-color: var(--mdc-theme-background, #f8f8f8);
-		border: 1px solid var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.1));
-	}
-
 	.solo-container {
 		display: flex;
 		justify-content: center;

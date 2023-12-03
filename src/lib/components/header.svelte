@@ -6,8 +6,12 @@
 	import Tooltip, { Wrapper } from '@smui/tooltip';
 	import type { User } from '@prisma/client';
 	import { goto } from '$app/navigation';
+	import Badge from '@smui-extra/badge';
 
 	export let actor: User | null;
+	export let isApprover: boolean;
+	export let botQueueCount: number;
+
 	let menu: Menu;
 
 	function onUserClick() {
@@ -30,6 +34,10 @@
 
 	function logout() {
 		goto('/api/v1/auth/logout');
+	}
+
+	function viewBotQueue() {
+		goto('/admin/queue');
 	}
 </script>
 
@@ -64,6 +72,16 @@
 				<Item on:SMUI:action={viewProfile}>
 					<Text>Profile</Text>
 				</Item>
+				{#if isApprover}
+					<Item on:SMUI:action={viewBotQueue} style="position: relative;">
+						<Text>Bot Queue</Text>
+						{#if botQueueCount > 0}
+							<Badge aria-label="Bot Queue Count" position="inset">
+								{botQueueCount}
+							</Badge>
+						{/if}
+					</Item>
+				{/if}
 				<Separator />
 				<Item on:SMUI:action={logout}>
 					<Text>Logout</Text>
