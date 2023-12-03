@@ -33,6 +33,28 @@
 	let resubmitErrorMessage = '';
 	let showRecentlyApprovedPaper = false;
 
+	// Deletion modal
+	let deletionModalOpen = false;
+	let isDeletingBot = false;
+	let deletionConfirmationName = '';
+
+	function confirmDeleteBot() {
+		isDeletingBot = true;
+		deletionModalOpen = false;
+		axios
+			.delete(`/api/v1/bots/${data.bot.id}`)
+			.then((d) => {
+				goto(`/`);
+			})
+			.catch((e) => {
+				alert(e?.response?.data?.message ?? 'Unable to send request.');
+				deletionModalOpen = true;
+			})
+			.finally(() => {
+				isDeletingBot = false;
+			});
+	}
+
 	if (data?.bot?.approved_time) {
 		const approvedTime = moment(data?.bot?.approved_time);
 		const now = moment();
@@ -190,6 +212,54 @@
 	</DActions>
 </Dialog>
 
+<Dialog scrimClickAction="" escapeKeyAction="" open={deletionModalOpen}>
+	<DTitle>Delete Bot</DTitle>
+	<DContent>
+		<div>
+			<p style="margin-bottom: 15px;">
+				Confirm this by typing the bot's name: <b>{data?.bot?.username}</b>
+			</p>
+
+			<TextField
+				variant="outlined"
+				label={'Confirm Name'}
+				bind:value={deletionConfirmationName}
+				required
+				style="width: 100%;"
+				helperLine$style="width: 100%;"
+			>
+				<svelte:fragment slot="helper">
+					<HelperText>Confirm the bot's name to delete it.</HelperText>
+				</svelte:fragment>
+			</TextField>
+
+			{#if deletionConfirmationName !== data?.bot?.username}
+				<p class="text-danger" style="margin-top: 10px;">
+					You must type the bot's name exactly to delete it.
+				</p>
+			{/if}
+		</div>
+	</DContent>
+	<DActions>
+		<Button
+			variant="outlined"
+			disabled={deletionConfirmationName !== data?.bot?.username}
+			on:click={() => {
+				confirmDeleteBot();
+			}}
+		>
+			Delete
+		</Button>
+		<Button
+			on:click={() => {
+				deletionModalOpen = false;
+			}}
+		>
+			Cancel
+		</Button>
+	</DActions>
+</Dialog>
+
 <!-- User Display -->
 <div class="bot-banner">
 	<div class="bot-display" style={`background-color: ${bannerColor};`}>
@@ -276,6 +346,15 @@
 										goto(`/bots/${data?.bot?.id}/edit`);
 									}}>Bot Settings</Button
 								>
+								<Button
+									color="primary"
+									type="button"
+									on:click={() => {
+										deletionModalOpen = true;
+									}}
+								>
+									Delete Bot
+								</Button>
 								{#if data?.canResubmit}
 									<Button
 										color="primary"

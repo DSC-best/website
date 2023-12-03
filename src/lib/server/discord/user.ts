@@ -46,3 +46,13 @@ export async function giveRoleToMember(uid: string, roleId: string) {
 
 	return true;
 }
+
+export async function kickUser(uid: string) {
+	const member = await getMemberInServer(uid);
+
+	if (!member) throw new Error('Member not found in server');
+
+	await member.kick();
+
+	return true;
+}

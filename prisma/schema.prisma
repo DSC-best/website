@@ -76,6 +76,7 @@ model Bot {
   approved_time         DateTime?
   created_time          DateTime          @default(now())
   modified_time         DateTime          @updatedAt
+  approval_logs         BotApprovalLog[]
 }
 
 model BotApprovalLog {
@@ -83,6 +84,7 @@ model BotApprovalLog {
   bot_id        String
   op_id         String
   operator      User              @relation(fields: [op_id], references: [id])
+  bot           Bot               @relation(fields: [bot_id], references: [id])
   status        BotApprovalStatus
   reason        String?
   created_time  DateTime          @default(now())
