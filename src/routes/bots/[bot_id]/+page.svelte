@@ -296,11 +296,31 @@
 
 <div class="bot-about">
 	<LayoutGrid>
+		{#if data.isModerator}
+			<Cell span={12}>
+				<Paper variant="outlined">
+					<Title>Moderation</Title>
+					<Subtitle>View the moderation page for this bot here</Subtitle>
+					<Content>
+						<Button
+							color="primary"
+							type="button"
+							variant="outlined"
+							on:click={() => {
+								goto(`/admin/bots/${data?.bot?.id}`);
+							}}
+						>
+							Moderation Page
+						</Button>
+					</Content>
+				</Paper>
+			</Cell>
+		{/if}
 		{#if showRecentlyApprovedPaper}
 			<Cell span={12}>
 				<Paper variant="outlined" color="success" class="paper-theme--outline-success text-success">
 					<Title>🐣</Title>
-					<Subtitle>I recently got approved and am now listed on DSC.best!</Subtitle>
+					<Content>I recently got approved and am now listed on DSC.best!</Content>
 				</Paper>
 			</Cell>
 		{/if}
