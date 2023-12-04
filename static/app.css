@@ -49,6 +49,16 @@ body {
 	color: var(--mdc-theme-primary-font);
 }
 
+.badge.badge-secondary {
+	background-color: var(--mdc-theme-secondary);
+	color: var(--mdc-theme-secondary-font);
+}
+
+.badge.badge-success {
+	background-color: var(--mdc-theme-success);
+	color: var(--mdc-theme-success-font);
+}
+
 .text-white {
 	color: var(--mdc-theme-white);
 }

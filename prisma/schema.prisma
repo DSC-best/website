@@ -98,6 +98,5 @@ model BotVote {
   voter         User     @relation(fields: [voter_id], references: [id])
   created_time  DateTime @default(now())
   modified_time DateTime @updatedAt
-  Bot           Bot?     @relation(fields: [botId], references: [id])
-  botId         String?
+  Bot           Bot      @relation(fields: [bot_id], references: [id])
 }

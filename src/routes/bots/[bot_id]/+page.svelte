@@ -243,7 +243,7 @@
 	<DActions>
 		<Button
 			variant="outlined"
-			disabled={deletionConfirmationName !== data?.bot?.username}
+			disabled={deletionConfirmationName !== data?.bot?.username || isDeletingBot}
 			on:click={() => {
 				confirmDeleteBot();
 			}}
