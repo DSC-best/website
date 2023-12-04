@@ -7,13 +7,13 @@
 	import { goto } from '$app/navigation';
 	import BotBadges from '$lib/components/botBadges.svelte';
 	import { BotApprovalStatus } from '@prisma/client';
-	import type { Bot } from '@prisma/client';
+	import UserButton from '$lib/components/userButton.svelte';
 	import { dateFormatEurope } from '$lib/utils/date.js';
 	import moment from 'moment';
 
 	export let data;
 
-	$: bot = (data as any)?.bot as Bot; // weird bug lol
+	$: bot = (data as any)?.bot as any; // weird bug lol
 
 	let errorMessage: string = '';
 
@@ -134,6 +134,46 @@
 						<Cell>Username</Cell>
 						<Cell>{bot?.username}</Cell>
 						<Cell></Cell>
+					</Row>
+					<Row>
+						<Cell>Owner</Cell>
+						<Cell>
+							<UserButton user={bot?.owner} />
+						</Cell>
+						<Cell>
+							<Button
+								variant="outlined"
+								disabled={!tableLoaded}
+								on:click={() => {
+									goto(`/admin/users/${bot?.owner?.id}`);
+								}}
+							>
+								Admin View
+							</Button>
+						</Cell>
+					</Row>
+					<Row>
+						<Cell>Approver</Cell>
+						<Cell>
+							{#if bot?.approver === null}
+								Not approved yet.
+							{:else}
+								<UserButton user={bot?.approver} />
+							{/if}
+						</Cell>
+						<Cell>
+							{#if bot?.approver !== null}
+								<Button
+									variant="outlined"
+									disabled={!tableLoaded}
+									on:click={() => {
+										goto(`/admin/users/${bot?.approver?.id}`);
+									}}
+								>
+									Admin View
+								</Button>
+							{/if}
+						</Cell>
 					</Row>
 					<Row>
 						<Cell>Vote Count</Cell>
