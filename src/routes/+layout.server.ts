@@ -7,6 +7,8 @@ import prisma from '$lib/server/prisma';
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({ locals }) {
 	const isApprover = RoleUtility.hasRole(locals?.actor?.role!, Roles.Approver);
+	const isModerator = RoleUtility.hasRole(locals?.actor?.role!, Roles.Moderator);
+
 	let botQueueCount = 0;
 
 	if (isApprover) {
@@ -28,6 +30,7 @@ export async function load({ locals }) {
 	return {
 		actor: locals?.actor ? SafeUser(locals.actor as User | null) : null,
 		isApprover,
+		isModerator,
 		botQueueCount
 	};
 }
