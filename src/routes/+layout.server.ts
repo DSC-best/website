@@ -6,8 +6,8 @@ import prisma from '$lib/server/prisma';
 
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({ locals }) {
-	const isApprover = RoleUtility.hasRole(locals?.actor?.role!, Roles.Approver);
-	const isModerator = RoleUtility.hasRole(locals?.actor?.role!, Roles.Moderator);
+	const isApprover = RoleUtility.hasMinRole(locals?.actor?.role!, Roles.Approver);
+	const isModerator = RoleUtility.hasMinRole(locals?.actor?.role!, Roles.Moderator);
 
 	let botQueueCount = 0;
 

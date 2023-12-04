@@ -2,7 +2,7 @@ import { BotApprovalStatus, type User } from '@prisma/client';
 import botTags from '$lib/server/botTags';
 import prisma from '$lib/server/prisma';
 import { error } from '@sveltejs/kit';
-import { RoleUtility, RoleNameMap } from '$lib/server/roles';
+import { RoleUtility, RoleNameMap, Roles } from '$lib/server/roles';
 import SafeUser from '$lib/structures/user';
 import SafeBot from '$lib/structures/bot';
 
@@ -15,7 +15,11 @@ export async function load({ locals, params }) {
 
 	if (!user) throw error(404, 'User not found');
 
-	if (user?.banned)
+	const isModerator = locals?.actor
+		? RoleUtility.hasMinRole(locals.actor.role, Roles.Moderator)
+		: false;
+
+	if (user?.banned && !isModerator)
 		throw error(401, 'This user has been banned for violating our terms of service');
 
 	const userBots = await prisma.bot.findMany({

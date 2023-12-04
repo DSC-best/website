@@ -37,7 +37,8 @@ export const RoleNameMap = Object.freeze({
 		priority: 101,
 		label: 'System',
 		materialIcon: 'settings',
-		description: 'This is the system user for this website.'
+		description: 'This is the system user for this website.',
+		grantable: false
 	}
 });
 
@@ -54,6 +55,30 @@ export class RoleUtility {
 		return (roles & role) === role;
 	}
 
+	static hasMinRole(roles: number, role: Roles): boolean {
+		return roles >= role;
+	}
+
+	static getHighestRole(roles: number): Roles {
+		let highestRole = Roles.User;
+		for (const role in Roles) {
+			if (!isNaN(Number(Roles[role]))) {
+				const roleNumber = Number(Roles[role]);
+				if (RoleUtility.hasRole(roles, roleNumber)) {
+					if (roleNumber > highestRole) highestRole = roleNumber;
+				}
+			}
+		}
+		return highestRole;
+	}
+
+	static hasStrongerRoles(rolesToCheck: number, compareRoles: number): boolean {
+		const check = this.getHighestRole(rolesToCheck);
+		const compare = this.getHighestRole(compareRoles);
+		
+		return check > compare;
+	}
+
 	static getAllRoles(roles: number): Roles[] {
 		return Object.keys(Roles)
 			.filter((key: any) => !isNaN(Number(Roles[key])))
@@ -68,5 +93,12 @@ export class RoleUtility {
 			roles = RoleUtility.addRole(roles, Roles[role as keyof typeof Roles]);
 		}
 		return roles;
+	}
+
+	static getValidRoles(): Roles[] {
+		return Object.keys(Roles)
+			.filter((key: any) => !isNaN(Number(Roles[key])))
+			.map((key: any) => Number(Roles[key]))
+			.filter((role) => role !== Roles.System);
 	}
 }
