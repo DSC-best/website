@@ -288,6 +288,17 @@
 						<Icon class="material-icons">add</Icon>
 						<FabLabel>Invite</FabLabel>
 					</Fab>
+					<Fab
+						on:click={() => {
+							goto(`/bots/${data?.bot?.id}/vote`);
+						}}
+						color="primary"
+						extended
+						style="margin-left: 5px;"
+					>
+						<Icon class="material-icons">thumb_up</Icon>
+						<FabLabel>Vote</FabLabel>
+					</Fab>
 				</div>
 			</div>
 		</div>
@@ -301,9 +312,7 @@
 				<Paper variant="outlined">
 					<Title>Moderation</Title>
 					<Content>
-						<p>
-							Head over to the moderation page for admin specific actions.
-						</p>
+						<p>Head over to the moderation page for admin specific actions.</p>
 						<Button
 							color="primary"
 							type="button"
@@ -339,10 +348,6 @@
 					<Title>Stats</Title>
 					<Content>
 						<p>
-							{data?.bot?.vote_count || 0} votes
-							<br />
-							{data?.bot?.guild_count || 0} servers
-							<br />
 							Added on
 							<span class="text-muted">
 								{dateFormatEurope(data?.bot?.created_at)}
