@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import moment from 'moment';
 	import axios from 'axios';
+	import MetaTags from '$lib/components/metaTags.svelte';
 
 	export let data;
 
@@ -31,6 +32,13 @@
 			});
 	}
 </script>
+
+<MetaTags
+	title={`Vote for @${data?.bot?.username} - DSC.best`}
+	description={`Vote for @${data?.bot?.username} on DSC.best!`}
+	themeColor={data?.bot?.banner_color ?? '#000000'}
+	image={data?.bot?.avatar}
+/>
 
 <div class="paper-container align-flex-center">
 	<Paper class="paper">
