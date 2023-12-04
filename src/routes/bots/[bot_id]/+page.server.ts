@@ -31,7 +31,7 @@ export async function load({ locals, params }) {
 
 	if (locals.actor) {
 		if (
-			RoleUtility.hasRole(locals.actor.role, Roles.Approver) &&
+			RoleUtility.hasMinRole(locals.actor.role, Roles.Approver) &&
 			bot.approval_status === BotApprovalStatus.PENDING &&
 			bot.approver_id === locals.actor.id
 		)
