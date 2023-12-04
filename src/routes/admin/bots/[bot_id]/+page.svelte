@@ -233,13 +233,10 @@
 								<Button variant="outlined" disabled={!tableLoaded} on:click={forceReject}>
 									Force Reject
 								</Button>
-								<Button variant="outlined" disabled={!tableLoaded} on:click={toggleBan}>Ban</Button>
 							{/if}
-							{#if bot?.approval_status === BotApprovalStatus.BANNED}
-								<Button variant="outlined" disabled={!tableLoaded} on:click={toggleBan}>
-									Unban
-								</Button>
-							{/if}
+							<Button variant="outlined" disabled={!tableLoaded} on:click={toggleBan}>
+								{bot?.approval_status === BotApprovalStatus.BANNED ? 'Unban' : 'Ban'}
+							</Button>
 						</Cell>
 					</Row>
 				</Body>

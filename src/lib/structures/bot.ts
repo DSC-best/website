@@ -26,6 +26,7 @@ export default function SafeBot(bot: Bot | null, actor?: User) {
 		owner: (bot as any)?.owner ? SafeUser((bot as any)?.owner) : null,
 		approver: (bot as any)?.approver ? SafeUser((bot as any)?.approver) : null,
 		approved_time: bot?.approved_time,
+		approval_request_time: bot?.approval_request_time,
 		created_time: bot?.created_time,
 		modified_time: bot?.modified_time
 	};
