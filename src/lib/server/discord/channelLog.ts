@@ -15,7 +15,7 @@ export default class ChannelLog {
 		title: string,
 		message: string,
 		userId?: string | null,
-		color: InternalColors = InternalColors.Blurple,
+		color: InternalColors = InternalColors.Blurple
 	) {
 		const guild = await bot.guilds.fetch(GUILD_ID);
 
@@ -36,9 +36,13 @@ export default class ChannelLog {
 
 		(channel as TextChannel).send({ embeds: [embed] });
 		if (userId) {
-			const user = await guild.members.fetch(userId);
-			if (!user) return;
-			user?.send({ embeds: [embed] });
+			try {
+				const user = await guild.members.fetch(userId);
+				if (!user) return;
+				user?.send({ embeds: [embed] });
+			} catch (e) {
+				console.error(e);
+			}
 		}
 	}
 }

@@ -8,7 +8,7 @@
 	import Button from '@smui/button';
 	import SvelteMarkdown from 'svelte-markdown';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
-	import Paper, { Content, Subtitle, Title } from '@smui/paper';
+	import Paper, { Content, Title } from '@smui/paper';
 	import UserButton from '$lib/components/userButton.svelte';
 	import { goto } from '$app/navigation';
 	import { dateFormatEurope } from '$lib/utils/date';
@@ -300,8 +300,10 @@
 			<Cell span={12}>
 				<Paper variant="outlined">
 					<Title>Moderation</Title>
-					<Subtitle>View the moderation page for this bot here</Subtitle>
 					<Content>
+						<p>
+							Head over to the moderation page for admin specific actions.
+						</p>
 						<Button
 							color="primary"
 							type="button"

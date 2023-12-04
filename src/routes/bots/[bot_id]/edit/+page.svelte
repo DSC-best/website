@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { IBotTag } from '$lib/server/botTags';
 	import Paper, { Title, Subtitle, Content } from '@smui/paper';
 	import Button, { Label } from '@smui/button';
 	import Chip, { Set, Text } from '@smui/chips';

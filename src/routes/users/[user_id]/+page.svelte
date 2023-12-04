@@ -7,8 +7,12 @@
 	import ContentsWithHeader from '$lib/components/contentsWithHeader.svelte';
 	import Chip, { Set, Text } from '@smui/chips';
 	import Dialog, { Title as DTitle, Content as DContent, Actions as DActions } from '@smui/dialog';
+	import Paper, { Content, Title } from '@smui/paper';
 	import Button from '@smui/button';
 	import MetaTags from '$lib/components/metaTags.svelte';
+	import { goto } from '$app/navigation';
+	import LayoutGrid from '@smui/layout-grid';
+	import { Cell } from '@smui/layout-grid';
 
 	let roleModalOpen = false;
 	let roleModalTitle = 'User Role';
@@ -79,6 +83,38 @@
 		</div>
 	</div>
 </div>
+
+{#if data.isModerator}
+	<LayoutGrid>
+		<Cell span={12}>
+			<Paper variant="outlined">
+				<Title>Moderation</Title>
+				<Content>
+					<p>Head over to the moderation page for admin specific actions.</p>
+					<Button
+						color="primary"
+						type="button"
+						variant="outlined"
+						on:click={() => {
+							goto(`/admin/users/${data?.user?.id}`);
+						}}
+					>
+						Moderation Page
+					</Button>
+				</Content>
+			</Paper>
+		</Cell>
+		{#if data.user.banned}
+			<Cell span={12}>
+				<Paper color="primary" class="paper-theme--outline-danger">
+					<Content>
+						<strong>Page Banned:</strong> This page was banned by staff and is only visible to staff.
+					</Content>
+				</Paper>
+			</Cell>
+		{/if}
+	</LayoutGrid>
+{/if}
 
 <ContentsWithHeader
 	title="Listed Bots"
