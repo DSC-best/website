@@ -17,11 +17,13 @@
 	--mdc-theme-white: #fff;
 	--mdc-theme-primary-font: #fff;
 	--mdc-theme-secondary: #{theme.$secondary};
+	--mdc-theme-secondary-font: #fff;
 	--mdc-theme-surface: #{theme.$surface};
 	--mdc-theme-on-surface: #{theme.$on-surface};
 	--mdc-theme-background: #{theme.$background};
 	--mdc-theme-error: #{theme.$error};
-	--mdc-theme-success: #4caf50;
+	--mdc-theme-success: #1abc9c;
+	--mdc-theme-success-font: #fff;
 	--mdc-theme-error-font: #fff;
 	--mdc-muted-text: rgba(255, 255, 255, 0.6);
 }
