@@ -28,7 +28,7 @@
 	}
 
 	function githubLink() {
-		goto('https://github.com/dsc-best/website');
+		window.open('https://github.com/dsc-best/website', '_blank');
 	}
 
 	function viewProfile() {
