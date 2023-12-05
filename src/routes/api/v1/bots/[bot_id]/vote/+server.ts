@@ -29,6 +29,9 @@ export async function POST({ locals, params }) {
 		where: {
 			bot_id: bot.id,
 			voter_id: locals.actor!.id
+		},
+		orderBy: {
+			created_time: 'desc'
 		}
 	});
 
