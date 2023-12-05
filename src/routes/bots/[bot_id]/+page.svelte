@@ -290,7 +290,7 @@
 					</Fab>
 					<Fab
 						on:click={() => {
-							goto(`/bots/${data?.bot?.id}/vote`);
+							window.open(`/bots/${data?.bot?.id}/vote`, '_blank');
 						}}
 						color="primary"
 						extended
