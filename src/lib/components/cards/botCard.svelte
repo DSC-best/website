@@ -67,7 +67,7 @@
 	}
 
 	.card-footer {
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		/* border-top: 1px solid rgba(255, 255, 255, 0.1); */
 		/* padding: 0px 6px;
 		border-radius: 5px; */
 		/* background-color: var(--mdc-theme-background); */
