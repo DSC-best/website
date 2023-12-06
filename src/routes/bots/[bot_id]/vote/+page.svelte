@@ -8,25 +8,30 @@
 
 	export let data;
 
-	let loading = false;
+	let voteCount = data?.bot?.vote_count ?? 0;
 
+	let loading = false;
+	let hasVoted = false;
 	let errorMessage: string = '';
 
 	if (data?.votingDisabled) {
 		errorMessage = 'Voting is currently disabled for this bot.';
 	}
 
-	if(!data?.actor){
+	if (!data?.actor) {
 		errorMessage = 'You must be logged in to vote for a bot.';
 	}
 
 	function onVote() {
 		loading = true;
+		hasVoted = false;
+		errorMessage = '';
 
 		axios
 			.post(`/api/v1/bots/${data?.bot?.id}/vote`)
 			.then((d) => {
-				goto(`/bots/${data?.bot?.id}`);
+				hasVoted = true;
+				voteCount += 1;
 			})
 			.catch((e) => {
 				errorMessage = e?.response?.data?.message ?? 'Unable to send request.';
@@ -60,14 +65,21 @@
 			{/if}
 
 			<div class="mb-2">
-				<div class="bot-preview">
+				<div class={`bot-preview ${hasVoted ? 'bg-fade-in-green' : ''}`}>
 					<img class="bot-avatar" src={data?.bot?.avatar} alt="" />
 					<div class="bot-items">
 						<p>
 							<b>{data?.bot?.username}</b>
 						</p>
 						<p>
-							{data?.bot?.vote_count} votes
+							{voteCount} votes
+						</p>
+						<p
+							class={`badge badge-success ${
+								hasVoted ? 'animation-scale-in' : 'animation-display-none'
+							}`}
+						>
+							You Voted
 						</p>
 					</div>
 				</div>
@@ -82,7 +94,7 @@
 			<!-- Actions -->
 			<div>
 				<Button
-					disabled={!data?.canVote || data?.votingDisabled || loading || !data?.actor}
+					disabled={!data?.canVote || data?.votingDisabled || loading || !data?.actor || hasVoted}
 					variant="outlined"
 					color="primary"
 					on:click={onVote}
@@ -110,6 +122,7 @@
 		background-color: var(--mdc-theme-background);
 		padding: 10px;
 		border-radius: 4px;
+		border: 1px solid var(--mdc-theme-background);
 	}
 
 	.bot-preview .bot-items {
