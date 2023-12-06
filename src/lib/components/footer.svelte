@@ -1,8 +1,6 @@
-<script lang="ts">
-</script>
-
 <!-- Footer at bottom -->
 <footer class="app-footer">
+	<div class="app-footer-margin"></div>
 	<div class="footer-content">
 		<div class="footer-section about">
 			<p class="copyright-text">
@@ -22,6 +20,10 @@
 		line-height: 1.5;
 		text-align: center;
 		/* always bottom */
-		margin-top: 10px;
+		margin-top: auto;
+	}
+
+	footer .app-footer-margin {
+		height: 50px;
 	}
 </style>

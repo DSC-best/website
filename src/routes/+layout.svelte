@@ -12,6 +12,16 @@
 	<meta name="description" content="Find the best Discord bots!" />
 </svelte:head>
 
-<Header actor={data.actor} isApprover={data.isApprover} botQueueCount={data.botQueueCount} />
-<slot />
-<Footer />
+<div class="app-core">
+	<Header actor={data.actor} isApprover={data.isApprover} botQueueCount={data.botQueueCount} />
+	<slot />
+	<Footer />
+</div>
+
+<style>
+	.app-core {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+</style>

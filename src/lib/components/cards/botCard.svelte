@@ -17,11 +17,11 @@
 					<h2 class="bot-username text-white">
 						{bot?.username || 'Unknown'}
 					</h2>
-					<p class="bot-info-item">
+					<!-- <p class="bot-info-item">
 						{bot?.vote_count || 0} votes
 						{' • '}
 						{bot?.guild_count || 0} servers
-					</p>
+					</p> -->
 					<BotBadges {bot} />
 				</div>
 			</div>
