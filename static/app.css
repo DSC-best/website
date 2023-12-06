@@ -84,3 +84,28 @@ body {
 .bot-display-info-item {
 	margin-left: 10px;
 }
+
+.animation-display-none {
+	display: none;
+}
+
+.animation-scale-in {
+	animation: scale-in 0.5s ease-in-out;
+}
+
+@keyframes scale-in {
+	0% {
+		transform: scale(0);
+	}
+	50% {
+		transform: scale(1.15);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.bg-fade-in-green {
+	border-color: var(--mdc-theme-success) !important;
+	animation: all 0.5s ease-in-out;
+}
