@@ -39,7 +39,7 @@
 
 <MetaTags
 	title={`Vote for @${data?.bot?.username} - DSC.best`}
-	description={`Vote for @${data?.bot?.username} on DSC.best!`}
+	description={`Vote for @${data?.bot?.username}, it currently has ${data?.bot?.vote_count} votes!`}
 	themeColor={data?.bot?.banner_color ?? '#000000'}
 	image={data?.bot?.avatar}
 />
