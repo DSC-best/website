@@ -1,6 +1,6 @@
 <!-- Footer at bottom -->
+<div class="app-footer-margin"></div>
 <footer class="app-footer">
-	<div class="app-footer-margin"></div>
 	<div class="footer-content">
 		<div class="footer-section about">
 			<p class="copyright-text">
@@ -23,7 +23,7 @@
 		margin-top: auto;
 	}
 
-	footer .app-footer-margin {
-		height: 50px;
+	.app-footer-margin {
+		height: 25px;
 	}
 </style>

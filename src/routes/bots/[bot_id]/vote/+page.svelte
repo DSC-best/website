@@ -16,6 +16,10 @@
 		errorMessage = 'Voting is currently disabled for this bot.';
 	}
 
+	if(!data?.actor){
+		errorMessage = 'You must be logged in to vote for a bot.';
+	}
+
 	function onVote() {
 		loading = true;
 
@@ -78,7 +82,7 @@
 			<!-- Actions -->
 			<div>
 				<Button
-					disabled={!data?.canVote || data?.votingDisabled || loading}
+					disabled={!data?.canVote || data?.votingDisabled || loading || !data?.actor}
 					variant="outlined"
 					color="primary"
 					on:click={onVote}

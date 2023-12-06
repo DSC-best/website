@@ -1,4 +1,3 @@
-import requireActor from '$lib/server/middleware/requireActor.js';
 import prisma from '$lib/server/prisma';
 import SafeBot from '$lib/structures/bot';
 import { BotApprovalStatus } from '@prisma/client';
@@ -7,8 +6,6 @@ import { error } from '@sveltejs/kit';
 export const _voteTimeout = 1000 * 60 * 60 * 12; // 12 hours
 
 export async function load({ locals, params }) {
-	await requireActor(locals);
-
 	const bot = await prisma.bot.findUnique({
 		where: {
 			id: params.bot_id
@@ -25,15 +22,17 @@ export async function load({ locals, params }) {
 
 	if (bot?.approval_status !== BotApprovalStatus.APPROVED) votingDisabled = true;
 
-	const latestVote = await prisma.botVote.findFirst({
-		where: {
-			bot_id: bot.id,
-			voter_id: locals.actor!.id
-		},
-		orderBy: {
-			created_time: 'desc'
-		}
-	});
+	let latestVote = locals.actor
+		? await prisma.botVote.findFirst({
+				where: {
+					bot_id: bot.id,
+					voter_id: locals.actor!.id
+				},
+				orderBy: {
+					created_time: 'desc'
+				}
+		  })
+		: null;
 
 	if (latestVote) {
 		if (Date.now() - latestVote.created_time.getTime() < _voteTimeout) {
