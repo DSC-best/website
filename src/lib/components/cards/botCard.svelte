@@ -86,11 +86,11 @@
 		padding-bottom: 5px;
 	}
 
-	.bot-info-item:not(:last-child) {
+	/* .bot-info-item:not(:last-child) {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		padding-bottom: 5px;
-	}
+	} */
 
 	.bot-tagline {
 		/* auto line break */
