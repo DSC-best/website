@@ -12,7 +12,6 @@
 
 <style>
 	footer.app-footer {
-		background-color: #172137;
 		border-top: 1px solid rgba(172, 185, 213, 0.12);
 		color: var(--mdc-theme-primary);
 		padding: 15px 5px;

@@ -52,6 +52,11 @@ body {
 	border-bottom: 1px solid rgba(172, 185, 213, 0.12);
 }
 
+footer.app-footer {
+	background-color: theme.$surface;
+	color: theme.$on-surface;
+}
+
 a {
 	color: #40b3ff;
 }
