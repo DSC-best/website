@@ -47,24 +47,26 @@ client.on(Events.GuildMemberRemove, async (member) => {
 		}
 	});
 
-	await prisma.botApprovalLog.create({
-		data: {
-			id: snowflake.getUniqueID()?.toString(),
-			bot_id: bot.id,
-			op_id: CLIENT_ID,
-			status: BotApprovalStatus.REJECTED,
-			reason: 'Bot left the server'
+	if (bot.approval_status === BotApprovalStatus.APPROVED) {
+		await prisma.botApprovalLog.create({
+			data: {
+				id: snowflake.getUniqueID()?.toString(),
+				bot_id: bot.id,
+				op_id: CLIENT_ID,
+				status: BotApprovalStatus.REJECTED,
+				reason: 'Bot left the server'
+			}
+		});
+		try {
+			await channelLog.sendLog(
+				'Bot Automatically Rejected!',
+				`Bot <@!${bot.id}> left the server, so it was automatically rejected.`,
+				null,
+				InternalColors.Red
+			);
+		} catch (e) {
+			console.trace(e);
 		}
-	});
-	try {
-		await channelLog.sendLog(
-			'Bot Automatically Rejected!',
-			`Bot <@!${bot.id}> left the server, so it was automatically rejected.`,
-			null,
-			InternalColors.Red
-		);
-	} catch (e) {
-		console.trace(e);
 	}
 });
 
