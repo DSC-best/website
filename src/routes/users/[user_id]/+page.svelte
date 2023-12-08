@@ -52,11 +52,7 @@
 <!-- User Display -->
 <div>
 	<div class="user-display" style={`background-color: ${data?.user?.banner_color};`}>
-		<div
-			class={`user-display-content ${
-				data?.user?.banner_color ? 'user-display-content--banner' : ''
-			}`}
-		>
+		<div class="user-display-content user-display-content--banner">
 			<div class="user-display-avatar">
 				<img src={data?.user?.avatar} alt="Avatar" />
 			</div>
