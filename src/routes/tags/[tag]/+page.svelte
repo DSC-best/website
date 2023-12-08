@@ -9,6 +9,7 @@
 	import BotGrid from '$lib/components/cards/botGrid.svelte';
 	import ContentsWithHeader from '$lib/components/contentsWithHeader.svelte';
 	import TagList from '$lib/components/tagList.svelte';
+	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Fab from '@smui/fab';
 	import { Icon } from '@smui/common';
 
@@ -33,17 +34,21 @@
 	</div>
 </div>
 
-<div class="mdc-layout-grid" style="padding-bottom: 10px;">
-	<h2>
-		{#if data?.tag?.materialIcon}
-			<Icon class="material-icons">{data?.tag?.materialIcon}</Icon>
-		{/if}
-        {data?.tag?.name}
-	</h2>
-    <p class="text-muted">
-        {data?.tag?.description}
-    </p>
-</div>
+<LayoutGrid>
+	<Cell cols={12}>
+		<div style="padding-bottom: 10px;">
+			<h2>
+				{#if data?.tag?.materialIcon}
+					<Icon class="material-icons">{data?.tag?.materialIcon}</Icon>
+				{/if}
+				{data?.tag?.name}
+			</h2>
+			<p class="text-muted">
+				{data?.tag?.description}
+			</p>
+		</div>
+	</Cell>
+</LayoutGrid>
 
 <ContentsWithHeader title={''} subtitle={'Sorted by highest rated'}>
 	<BotGrid bots={data.results} />
