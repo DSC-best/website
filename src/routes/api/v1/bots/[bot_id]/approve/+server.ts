@@ -1,10 +1,12 @@
 import { BOT_ROLE_ID } from '$env/static/private';
 import ChannelLog from '$lib/server/discord/channelLog';
-import { getMemberInServer, giveRoleToMember } from '$lib/server/discord/user.js';
+import { getMemberInServer, giveRoleToMember } from '$lib/server/discord/user';
+import { embedBotUsername, embedUserUsername } from '$lib/server/embedHelper.js';
 import requireActorRole from '$lib/server/middleware/requireActorRole';
 import prisma from '$lib/server/prisma';
 import { Roles } from '$lib/server/roles';
 import snowflake from '$lib/server/snowflake';
+import SafeBot from '$lib/structures/bot';
 import { BotApprovalStatus } from '@prisma/client';
 import { json } from '@sveltejs/kit';
 
@@ -68,10 +70,17 @@ export async function POST({ locals, params, request }) {
 		}
 	});
 
+	const safeBot = SafeBot(bot);
+
 	await channelLog.sendLog(
 		`Bot Approved!`,
-		`**Bot:** <@!${bot.id}> (Owner: <@!${bot.owner_id}>)\n**Approver:** <@!${locals.actor!
-			.id!}>\n**Reason:** ${note}`,
+		`**Bot:** ${embedBotUsername(
+			safeBot?.id!,
+			safeBot?.username!
+		)}\n**Approver:** ${embedUserUsername(
+			locals?.actor?.id!,
+			locals?.actor?.username!
+		)}\n**Reason:** ${note}`,
 		bot?.owner_id
 	);
 

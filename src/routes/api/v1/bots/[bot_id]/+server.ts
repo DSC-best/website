@@ -1,8 +1,10 @@
 import { InternalColors } from '$lib/server/colors';
 import ChannelLog from '$lib/server/discord/channelLog';
-import { kickUser } from '$lib/server/discord/user.js';
+import { kickUser } from '$lib/server/discord/user';
+import { embedBotUsername, embedUserUsername } from '$lib/server/embedHelper.js';
 import requireActor from '$lib/server/middleware/requireActor';
 import prisma from '$lib/server/prisma';
+import SafeBot from '$lib/structures/bot';
 import { json } from '@sveltejs/kit';
 
 const channelLog = new ChannelLog();
@@ -43,9 +45,14 @@ export async function DELETE({ locals, params }) {
 		console.error(e);
 	}
 
+	const safeBot = SafeBot(bot);
+
 	await channelLog.sendLog(
 		`Bot deleted by author`,
-		`Bot <@!${bot.id}> was deleted by <@!${locals?.actor?.id}>`,
+		`Bot ${embedBotUsername(safeBot?.id!, safeBot?.username!)} was deleted by ${embedUserUsername(
+			locals?.actor?.id!,
+			locals?.actor?.username!
+		)}`,
 		locals?.actor?.id,
 		InternalColors.Red
 	);

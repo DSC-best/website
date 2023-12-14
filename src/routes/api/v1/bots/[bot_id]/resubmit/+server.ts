@@ -1,4 +1,5 @@
 import ChannelLog from '$lib/server/discord/channelLog';
+import { embedBotUsername } from '$lib/server/embedHelper.js';
 import requireActor from '$lib/server/middleware/requireActor';
 import prisma from '$lib/server/prisma';
 import snowflake from '$lib/server/snowflake';
@@ -49,8 +50,11 @@ export async function POST({ locals, params, request }) {
 
 	await channelLog.sendLog(
 		`Resubmitted bot in queue!`,
-		`${safeBot.username} (<@!${safeBot.id}>) has been submitted to the queue by <@!${locals?.actor
-			?.id!}>`
+		`${embedBotUsername(
+			safeBot?.id!,
+			safeBot?.username!
+		)} has been submitted to the queue and will be reviewed by our team soon!`,
+		bot?.owner_id
 	);
 
 	return json({ message: 'Bot resubmitted' });

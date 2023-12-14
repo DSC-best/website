@@ -2,6 +2,7 @@ import type { IBotTag } from '$lib/server/botTags';
 import botTags from '$lib/server/botTags';
 import ChannelLog from '$lib/server/discord/channelLog';
 import { getDiscordUserById, getMemberInServer } from '$lib/server/discord/user';
+import { embedBotUsername, embedUserUsername } from '$lib/server/embedHelper.js';
 import { isValidHex } from '$lib/server/hexColorValidator.js';
 import makeAvatarUrl from '$lib/server/makeAvatar';
 import requireActor from '$lib/server/middleware/requireActor';
@@ -209,8 +210,13 @@ export async function POST({ locals, request }) {
 
 	await channelLog.sendLog(
 		`New bot in queue!`,
-		`${safeBot.username} (<@!${safeBot.id}>) has been submitted to the queue by <@!${locals?.actor
-			?.id!}>`
+		`${embedBotUsername(
+			safeBot?.id!,
+			safeBot?.username!
+		)} has been submitted to the queue by ${embedUserUsername(
+			locals?.actor?.id!,
+			locals?.actor?.username!
+		)}`
 	);
 
 	return json(

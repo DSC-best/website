@@ -3,10 +3,12 @@ import botTags from '$lib/server/botTags';
 import { InternalColors } from '$lib/server/colors';
 import ChannelLog from '$lib/server/discord/channelLog';
 import { getDiscordUserById, getMemberInServer } from '$lib/server/discord/user';
+import { embedBotUsername, embedUserUsername } from '$lib/server/embedHelper.js';
 import { isValidHex } from '$lib/server/hexColorValidator';
 import makeAvatarUrl from '$lib/server/makeAvatar';
 import requireActor from '$lib/server/middleware/requireActor';
 import prisma from '$lib/server/prisma';
+import SafeBot from '$lib/structures/bot.js';
 import { json } from '@sveltejs/kit';
 
 const channelLog = new ChannelLog();
@@ -193,9 +195,14 @@ export async function POST({ locals, request, params }) {
 		}
 	});
 
+	const safeBot = SafeBot(newBot);
+
 	await channelLog.sendLog(
 		'Bot Updated!',
-		`Bot <@!${botId}> was updated by <@!${locals.actor?.id!}>`,
+		`${embedBotUsername(safeBot?.id!, safeBot?.username!)} was updated by ${embedUserUsername(
+			locals?.actor?.id!,
+			locals?.actor?.username!
+		)}`,
 		locals.actor?.id!,
 		InternalColors.Green
 	);
