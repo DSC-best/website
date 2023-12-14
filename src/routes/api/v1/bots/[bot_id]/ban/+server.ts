@@ -1,5 +1,3 @@
-import { InternalColors } from '$lib/server/colors';
-import ChannelLog from '$lib/server/discord/channelLog';
 import { kickUser } from '$lib/server/discord/user.js';
 import requireActorRole from '$lib/server/middleware/requireActorRole';
 import prisma from '$lib/server/prisma';
@@ -7,8 +5,6 @@ import { Roles } from '$lib/server/roles';
 import snowflake from '$lib/server/snowflake';
 import { BotApprovalStatus } from '@prisma/client';
 import { json } from '@sveltejs/kit';
-
-const channelLog = new ChannelLog();
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export async function POST({ locals, params, request }) {
@@ -49,15 +45,6 @@ export async function POST({ locals, params, request }) {
 				newStatus === BotApprovalStatus.BANNED ? 'Banned bot' : 'Unbanned bot & Set to rejected'
 		}
 	});
-
-	await channelLog.sendLog(
-		newStatus === BotApprovalStatus.BANNED ? `Banned Bot` : `Unbanned Bot`,
-		newStatus === BotApprovalStatus.BANNED
-			? `Banned <@!${bot.owner_id}>'s bot <@!${bot.id}>`
-			: `Unbanned <@!${bot.owner_id}>'s bot <@!${bot.id}>`,
-		bot?.owner_id,
-		InternalColors.Red
-	);
 
 	try {
 		await kickUser(bot?.id);

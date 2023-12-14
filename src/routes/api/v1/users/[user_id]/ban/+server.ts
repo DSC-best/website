@@ -5,6 +5,7 @@ import requireActorRole from '$lib/server/middleware/requireActorRole';
 import prisma from '$lib/server/prisma';
 import { RoleUtility, Roles } from '$lib/server/roles';
 import snowflake from '$lib/server/snowflake';
+import SafeBot from '$lib/structures/bot.js';
 import { BotApprovalStatus } from '@prisma/client';
 import { json } from '@sveltejs/kit';
 

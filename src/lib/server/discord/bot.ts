@@ -6,6 +6,8 @@ import snowflake from '../snowflake';
 import ChannelLog from './channelLog';
 import { InternalColors } from '../colors';
 import makeAvatarUrl from '../makeAvatar';
+import SafeBot from '$lib/structures/bot';
+import { embedBotUsername } from '../embedHelper';
 
 //? The amount of these intents is crazy....
 const client = new Client({
@@ -58,9 +60,14 @@ client.on(Events.GuildMemberRemove, async (member) => {
 			}
 		});
 		try {
+			const safeBot = SafeBot(bot);
+
 			await channelLog.sendLog(
 				'Bot Automatically Rejected!',
-				`Bot <@!${bot.id}> left the server, so it was automatically rejected.`,
+				`Bot ${embedBotUsername(
+					safeBot?.id!,
+					safeBot?.username!
+				)} left the server, so it was automatically rejected.`,
 				null,
 				InternalColors.Red
 			);

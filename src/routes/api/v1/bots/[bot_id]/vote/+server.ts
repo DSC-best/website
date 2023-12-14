@@ -7,6 +7,7 @@ import ChannelLog from '$lib/server/discord/channelLog';
 import { APP_URL } from '$env/static/private';
 import SafeBot from '$lib/structures/bot';
 import { InternalColors } from '$lib/server/colors';
+import { embedBotUsername, embedUserUsername } from '$lib/server/embedHelper';
 
 const channelLog = new ChannelLog();
 
@@ -68,9 +69,11 @@ export async function POST({ locals, params }) {
 	const safeBot = SafeBot(bot);
 
 	await channelLog.sendLog(
-		`Bot voted for`,
-		`Bot [${safeBot?.username}](${APP_URL}/bots/${bot?.id}) was voted for by <@!${locals?.actor
-			?.id}>, now at ${bot?.vote_count + 1} votes`,
+		`Bot Voted`,
+		`${embedBotUsername(safeBot?.id!, safeBot?.username!)} was voted for by ${embedUserUsername(
+			locals?.actor?.id!,
+			locals?.actor?.username!
+		)}, now at ${bot?.vote_count + 1} votes`,
 		null,
 		InternalColors.Green
 	);
